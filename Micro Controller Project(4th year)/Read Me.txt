@@ -1,0 +1,24 @@
+Please Located the hex file for each protues project
+
+1.For Infrared Motor Control
+
+hex file is located "MicroC\Infrared Motor Control\Infrared_Motor_Control.X\dist\default\production"
+
+please dont forget to locate the infrared hex file too.
+
+location :MicroC\Infrared Motor Control\Infrared_Motor_Control.X\dist\default\production
+name "InfraredSensorsTEP.HEX"
+
+
+2.LCD interface
+
+hex file is located
+
+MicroC\LCD interface\LCD_Interface.X\dist\default\production
+
+
+3.For Motor Speed Control
+
+hex file is located 
+
+MicroC\PIC18F Motor Control\C Code and Hex File

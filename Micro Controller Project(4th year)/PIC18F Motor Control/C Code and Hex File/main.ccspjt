@@ -1,0 +1,56 @@
+[PROJECT]
+Target=main.hex
+Processor_Text=PIC18F4550
+CCSVerions=5.112
+Compiler=PCH
+CCSVersion=5.117d
+[Target Data]
+FileList=main.c
+[Directories]
+Include=
+[C:\Users\See\Desktop\DC_Motor_Speed\main]
+Type=4
+[mru-list]
+1=main.c
+
+[fileformats]
+forcecoff=0
+
+[ProjectLog]
+Days=2
+D1=31-05-2024
+D1_L=9
+D1_L1=[57362]Project Opened.
+D1_L2=[57369]Started Editing.
+D1_L3=[57669]Stopped Editing.
+D1_L4=[57888]Started Editing.
+D1_L5=[58198]Stopped Editing.
+D1_L6=[59905]Project Opened.
+D1_L7=[59950]Started Editing.
+D1_L8=[60365]Stopped Editing.
+TotalEdit=5
+TotalDebug=0
+D1_E=2
+D1_D=0
+D1_L9=[60507]Project Closed.
+D2=01-06-2024
+D2_L=4
+D2_L1=[41955]Project Opened.
+D2_L2=[41971]Started Editing.
+D2_L3=[42149]Stopped Editing.
+D2_E=3
+D2_D=0
+D2_L4=[42149]Project Closed.
+
+[Opened Files]
+1=main.c
+t1=17
+Count=1
+[main.c]
+Type=4
+
+[defines]
+buildcount=5
+[Units]
+Count=1
+1=main (main)

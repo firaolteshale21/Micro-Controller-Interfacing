@@ -1,0 +1,5 @@
+Compiling C:\Users\firao\Downloads\Telegram Desktop\Projects_Final\Motor_Control_Button\src\main on 01-Jun-24 at 11:41
+>>> Warning 203 "C:\Users\firao\Downloads\Telegram Desktop\Projects_Final\Motor_Control_Button\src\main.c" Line 27(1,1): Condition always TRUE  8-bit value passed to function, only 8 MSB of duty will be set
+      Memory usage:   ROM=1%      RAM=0% - 0%
+      0 Errors,  1 Warnings.
+Build Successful.

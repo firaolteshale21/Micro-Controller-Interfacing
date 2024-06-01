@@ -1,0 +1,160 @@
+CCS PCH C Compiler, Version 5.117d, 1               01-Jun-24 11:41
+Compiler operating in Evaluation Mode
+To obtain a fully enabled compiler visit www.ccsinfo.com/products
+
+               Filename:   C:\Users\firao\Downloads\Telegram Desktop\Projects_Final\Motor_Control_Button\src\main.lst
+
+               ROM used:   164 bytes (1%)
+                           Largest free fragment is 32604
+               RAM used:   5 (0%) at main() level
+                           6 (0%) worst case
+               Stack used: 0 locations
+               Stack size: 31
+
+*
+0000:  GOTO   0038
+.................... #include <18F4550.h>
+.................... //////////// Standard Header file for the PIC18F4550 device ////////////////
+.................... ///////////////////////////////////////////////////////////////////////////
+.................... ////        (C) Copyright 1996, 2020 Custom Computer Services          ////
+.................... //// This source code may only be used by licensed users of the CCS C  ////
+.................... //// compiler.  This source code may only be distributed to other      ////
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction ////
+.................... //// or distribution is permitted without written permission.          ////
+.................... //// Derivative programs created using this software in object code    ////
+.................... //// form are not restricted in any way.                               ////
+.................... ///////////////////////////////////////////////////////////////////////////
+.................... #device PIC18F4550
+.................... 
+.................... #list
+.................... 
+.................... 
+.................... // Configuration bits
+.................... #fuses NOWDT, HSPLL, PLL5, CPUDIV1, USBDIV, VREGEN, NOLVP
+.................... #use delay(clock=48MHz)  
+*
+000A:  CLRF   FEA
+000C:  MOVLW  06
+000E:  MOVWF  FE9
+0010:  MOVF   FEF,W
+0012:  BTFSC  FD8.2
+0014:  GOTO   0034
+0018:  MOVLW  0F
+001A:  MOVWF  01
+001C:  CLRF   00
+001E:  DECFSZ 00,F
+0020:  BRA    001E
+0022:  DECFSZ 01,F
+0024:  BRA    001C
+0026:  MOVLW  8F
+0028:  MOVWF  00
+002A:  DECFSZ 00,F
+002C:  BRA    002A
+002E:  NOP   
+0030:  DECFSZ FEF,F
+0032:  BRA    0018
+0034:  GOTO   00A0 (RETURN)
+.................... // Define pins
+.................... #define BUTTON0 PIN_B0 // Start motor low speed
+.................... #define BUTTON2 PIN_B2 // Increase speed further
+.................... #define BUTTON3 PIN_B3 // Stop motor
+.................... #define MOTOR_PWM PIN_C2 // Motor PWM output pin
+.................... 
+.................... void setup_pwm(int duty) {
+....................     set_pwm1_duty(duty);
+*
+0004:  MOVFF  06,FBE
+0008:  RETURN 0
+.................... }
+.................... 
+.................... void main() {
+*
+0038:  CLRF   FF8
+003A:  BCF    FD0.7
+003C:  MOVF   FC1,W
+003E:  ANDLW  C0
+0040:  IORLW  0F
+0042:  MOVWF  FC1
+0044:  MOVLW  07
+0046:  MOVWF  FB4
+....................     // Set pin directions
+....................     set_tris_b(0x0F); // Set RB0-RB3 as input (Buttons), others as outputs
+0048:  MOVLW  0F
+004A:  MOVWF  F93
+....................     set_tris_c(0xFB); // Set RC2 as output (Motor PWM), others as inputs
+004C:  MOVLW  FB
+004E:  MOVWF  F94
+.................... 
+....................     // Initialize PWM
+....................     setup_timer_2(T2_DIV_BY_16, 255, 1); // Timer2 setup
+0050:  MOVLW  00
+0052:  IORLW  06
+0054:  MOVWF  FCA
+0056:  MOVLW  FF
+0058:  MOVWF  FCB
+....................     setup_ccp1(CCP_PWM); // Configure CCP1 as PWM
+005A:  BCF    F94.2
+005C:  BCF    F8B.2
+005E:  MOVLW  0C
+0060:  MOVWF  FBD
+0062:  CLRF   FB7
+0064:  CLRF   FB6
+.................... 
+....................     int duty_cycle = 0; // Variable to store duty cycle value
+0066:  CLRF   05
+.................... 
+....................     while (1) {
+....................         if (input(BUTTON0)) {
+0068:  BSF    F93.0
+006A:  BTFSS  F81.0
+006C:  BRA    007A
+....................             // Start motor at low speed
+....................             duty_cycle = 10;
+006E:  MOVLW  0A
+0070:  MOVWF  05
+....................             setup_pwm(duty_cycle);
+0072:  MOVFF  05,06
+0076:  RCALL  0004
+....................         } else if (input(BUTTON2)) {
+0078:  BRA    009A
+007A:  BSF    F93.2
+007C:  BTFSS  F81.2
+007E:  BRA    008C
+....................             // Increase speed further
+....................             duty_cycle = 200;
+0080:  MOVLW  C8
+0082:  MOVWF  05
+....................             setup_pwm(duty_cycle);
+0084:  MOVFF  05,06
+0088:  RCALL  0004
+....................         } else if (input(BUTTON3)) {
+008A:  BRA    009A
+008C:  BSF    F93.3
+008E:  BTFSS  F81.3
+0090:  BRA    009A
+....................             // Stop motor
+....................             duty_cycle = 0; // Stop motor (0% duty cycle)
+0092:  CLRF   05
+....................             setup_pwm(duty_cycle);
+0094:  MOVFF  05,06
+0098:  RCALL  0004
+....................         }
+.................... 
+....................         delay_ms(100); // Small delay for debouncing
+009A:  MOVLW  64
+009C:  MOVWF  06
+009E:  BRA    000A
+00A0:  BRA    0068
+....................     }
+.................... }
+.................... 
+00A2:  SLEEP 
+
+Configuration Fuses:
+   Word  1: CE24   PLL5 CPUDIV1 USBDIV HSPLL FCMEN IESO
+   Word  2: 1E3E   PUT BROWNOUT BORV21 VREGEN NOWDT WDT32768
+   Word  3: 8700   CCP2C1 PBADEN LPT1OSC MCLR
+   Word  4: 00A1   STVREN NOLVP ICSP2 NOXINST NODEBUG
+   Word  5: C00F   NOPROTECT NOCPB NOCPD
+   Word  6: E00F   NOWRT NOWRTC NOWRTB NOWRTD
+   Word  7: 400F   NOEBTR NOEBTRB
